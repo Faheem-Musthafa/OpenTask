@@ -62,9 +62,9 @@ export function Web3Provider({ children }: { children: ReactNode }) {
       const provider = getProvider()
       if (!provider) return
 
-      const accounts = await provider.listAccounts()
-      if (accounts.length > 0) {
-        setAccount(accounts[0].address)
+      const signer = await provider.getSigner()
+      if (signer) {
+        setAccount(signer.address)
         const network = await provider.getNetwork()
         setChainId(`0x${network.chainId.toString(16)}`)
       }
